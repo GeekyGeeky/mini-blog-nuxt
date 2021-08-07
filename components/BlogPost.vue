@@ -6,11 +6,20 @@
     img-width="200px"
     class="mb-3"
   >
-    <h5>{{ title }}</h5>
+    <h5>
+      <nuxt-link :to="`/user/` + slug" class="see-more-link">{{
+        title
+      }}</nuxt-link>
+    </h5>
     <b-card-text>{{ filteredContent }}</b-card-text>
-    <nuxt-link :to="`/posts/` + slug" class="post-see-more-link"
+    <b-row>
+      <b-col>
+        <p>Jul 20, 2020</p>
+      </b-col>
+    </b-row>
+    <!-- <nuxt-link :to="`/posts/` + slug" class="post-see-more-link"
       >See more</nuxt-link
-    >
+    > -->
   </b-card>
 </template>
 
@@ -19,8 +28,12 @@ export default {
   props: ["imgUrl", "title", "content", "slug"],
   computed: {
     filteredContent() {
-      if (this.content.length > 30) return this.content.substring(0, 30);
-      return this.content;
+      let regex = /(<([^>]+)>)/gi;
+      if (!this.imgUrl && this.content.length < 80)
+        return this.content.substring(0, 80).replace(regex, "");
+      if (this.content.length > 65)
+        return this.content.substring(0, 65).replace(regex, "") + " ...";
+      return this.content.replace(regex, "");
     },
   },
 };
@@ -38,5 +51,20 @@ export default {
 .post-see-more-link:hover {
   text-decoration: none;
   background-color: rgb(5, 5, 5);
+}
+
+.see-more-link {
+  text-decoration: none;
+  /* padding: 3px 8px 7px 8px; */
+  /* background-color: rgba(10, 10, 10, 0.8); */
+  color: #222222;
+  /* border-radius: 6px; */
+}
+.see-more-link:hover {
+  text-decoration: none;
+  /* padding: 3px 8px 7px 8px; */
+  /* background-color: rgba(10, 10, 10, 0.8); */
+  color: #17a2b8;
+  /* border-radius: 6px; */
 }
 </style>
