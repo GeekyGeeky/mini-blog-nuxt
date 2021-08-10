@@ -53,10 +53,10 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapGetters } from "vuex";
 export default {
   computed: {
-    ...mapState(["isLoggedIn"]),
+    ...mapGetters(["isLoggedIn"]),
   },
 };
 </script>

@@ -69,8 +69,13 @@ export default {
   },
   methods: {
     async loginUser() {
-      this.$store.commit("persistUserLogin");
-      this.$router.replace("/dashboard");
+      try {
+        let result = await this.$store.dispatch("loginUser");
+      // this.$router.replace("/dashboard");
+      } catch (e) {
+        console.log(e.response);
+      }
+      // this.$store.commit("persistUserLogin");
     },
   },
 };
